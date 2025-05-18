@@ -742,9 +742,17 @@ fortuneBtn.addEventListener('click', () => {
 });
 
 tarotBtn.addEventListener('click', () => {
-  const idx = Math.floor(Math.random() * tarotFortune.length);
-  alert(`【AI塔羅占卜】${tarotFortune[idx]}`);
+  const idx = Math.floor(Math.random() * tarotCards.length);
+  const card = tarotCards[idx];
+  const isUpright = Math.random() > 0.5;
+  const result = `
+    <b>你抽到：</b>${card.name} ${isUpright ? "（正位）" : "（逆位）"}<br>
+    <span style="color:#c0392b;">${isUpright ? card.upright : card.reversed}</span>
+    <br><span style="font-size:0.98em;color:#6c3483;">（唔準你告我啦，抽到咩都係你嘅命！）</span>
+  `;
+  fortuneResult.innerHTML = result;
 });
+
 
 // 預設載入第一個測驗
 loadQuiz();
