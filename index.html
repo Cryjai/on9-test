@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>心理測驗 人格測驗 99%人話準！😏</title>
+  <title>心理測驗 人格測驗 算命占卜 99%人話準！😏</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -450,15 +450,93 @@ const mbtiFortune = {
   ESFP: "ESFP：今日適合玩樂，記得唔好玩到唔返屋企。"
 };
 // 塔羅占卜
-const tarotFortune = [
-  "今日抽到『愚人』：新開始，唔好怕丟臉，勇往直前。",
-  "今日抽到『戀人』：感情有新進展，記得主動出擊。",
-  "今日抽到『死神』：舊事要放低，唔好再糾纏過去。",
-  "今日抽到『力量』：你有能力解決所有難題，唔好怕。",
-  "今日抽到『星幣六逆位』：唔好咁快想回本，投資要有耐性。",
-  "今日抽到『隱士』：適合自己靜靜反思，唔好亂出聲。",
-  "今日抽到『太陽』：今日超級順，唔好浪費好運氣。",
-  "今日抽到『月亮』：小心人哋呃你，唔好太天真。"
+const tarotCards = [
+  { name: "愚者 The Fool", upright: "【正位】膽粗粗咩都唔驚，衝出去撞板。今日唔怕死，明天就知痛。", reversed: "【逆位】真係on9，諗都唔諗就衝，撞完板都唔記得痛。" },
+  { name: "魔術師 The Magician", upright: "【正位】乜都識少少，扮晒嘢。今日你係場面王。", reversed: "【逆位】扮到十項全能，實際咩都唔精，講多過做。" },
+  { name: "女祭司 The High Priestess", upright: "【正位】心事重重，唔講你知。今日做神秘人，唔好咁易信人。", reversed: "【逆位】諗多咗，自己嚇自己，成日疑神疑鬼。" },
+  { name: "皇后 The Empress", upright: "【正位】食好著好，錫自己先有力錫人。今日適合hea。", reversed: "【逆位】懶到出汁，等人服侍你，結果冇人理你。" },
+  { name: "皇帝 The Emperor", upright: "【正位】控制狂，話晒事。今日要做老細。", reversed: "【逆位】控制唔到局面，成日爆炸。" },
+  { name: "教皇 The Hierophant", upright: "【正位】老屎忽，講道理。今日講嘢要有根有據。", reversed: "【逆位】唔跟規矩，鍾意反骨，唔理人點睇。" },
+  { name: "戀人 The Lovers", upright: "【正位】戀愛腦，今日選擇困難症發作。", reversed: "【逆位】感情煩到爆，三心兩意，自己都唔知想點。" },
+  { name: "戰車 The Chariot", upright: "【正位】衝呀！唔理死活，今日唔撞牆唔收手。", reversed: "【逆位】衝過頭，失控，最後打回原形。" },
+  { name: "力量 Strength", upright: "【正位】溫柔力壓蠻力，今日靠氣場贏人。", reversed: "【逆位】冇晒力，唔夠膽，唔敢出聲。" },
+  { name: "隱者 The Hermit", upright: "【正位】自閉仔模式on，自己諗嘢唔理人。", reversed: "【逆位】孤獨到發霉，成日emo，唔識搵出口。" },
+  { name: "命運之輪 Wheel of Fortune", upright: "【正位】今日你，明日我，轉得快過MTR。", reversed: "【逆位】運氣唔到你，等運到等到白頭。" },
+  { name: "正義 Justice", upright: "【正位】公平公正，計到盡，今日唔俾你呃。", reversed: "【逆位】唔公道，偏心到出汁，自己都知唔啱。" },
+  { name: "吊人 The Hanged Man", upright: "【正位】等到頸都長，忍讓到極致。", reversed: "【逆位】唔肯再忍，直接爆炸，唔玩啦。" },
+  { name: "死神 Death", upright: "【正位】Game Over，轉新Level，放低舊野。", reversed: "【逆位】死都唔肯放手，糾纏不清，自己攞苦嚟辛。" },
+  { name: "節制 Temperance", upright: "【正位】淡定啲，唔好咁大反應，今日適合hea。", reversed: "【逆位】失控，情緒爆煲，唔識收斂。" },
+  { name: "惡魔 The Devil", upright: "【正位】上癮，甩唔到身，可能係Netflix、打機、糖。", reversed: "【逆位】終於戒甩壞習慣，唔再做自己奴隸。" },
+  { name: "高塔 The Tower", upright: "【正位】爆煲，冧樓，今日有大事發生。", reversed: "【逆位】爆完煲，執返條命，開始重建。" },
+  { name: "星星 The Star", upright: "【正位】發夢都仲有希望，今日有靚仔靚女like你。", reversed: "【逆位】希望渺茫，發夢都冇人理你。" },
+  { name: "月亮 The Moon", upright: "【正位】迷迷糊糊，信唔過自己，今日唔好亂信人。", reversed: "【逆位】終於睇清現實，唔再自欺欺人。" },
+  { name: "太陽 The Sun", upright: "【正位】開心Share，曬命，今日超級順。", reversed: "【逆位】曬命曬到人都走晒，唔識收斂。" },
+  { name: "審判 Judgement", upright: "【正位】返嚟再嚟過，翻生機會，唔好怕失敗。", reversed: "【逆位】死唔悔改，唔肯面對現實，繼續hea落去。" },
+  { name: "世界 The World", upright: "【正位】大圓滿，畢業啦！今日可以收工。", reversed: "【逆位】未完成，差啲咁滯，唔好偷懶，做埋佢！" },
+
+  // 權杖 Ace-10 + 宮廷牌
+  { name: "權杖Ace", upright: "【正位】新開始，諗住發達，今日有新idea。", reversed: "【逆位】諗得多，做得少，idea變廢紙。" },
+  { name: "權杖2", upright: "【正位】兩難，揀唔到，左右做人難。", reversed: "【逆位】拖拖拉拉，最後咩都冇揀到。" },
+  { name: "權杖3", upright: "【正位】開始見到希望，計劃有進展。", reversed: "【逆位】計劃趕不上變化，hea到最後。" },
+  { name: "權杖4", upright: "【正位】小確幸，Party time，今日適合同friend玩。", reversed: "【逆位】冇人陪你玩，自己一個hea。" },
+  { name: "權杖5", upright: "【正位】無啦啦同人鬥氣，爭啲咩都要爭。", reversed: "【逆位】爭到攰，唔想再理，自己玩自己。" },
+  { name: "權杖6", upright: "【正位】贏咗，曬命，今日你係主角。", reversed: "【逆位】贏都冇人理，孤獨求敗。" },
+  { name: "權杖7", upright: "【正位】頂硬上，唔服輸，今日唔認輸。", reversed: "【逆位】頂唔住，投降，唔玩啦。" },
+  { name: "權杖8", upright: "【正位】快到飛起，急急腳，今日要快狠準。", reversed: "【逆位】急咩啫，最後都係慢過人。" },
+  { name: "權杖9", upright: "【正位】捱到最後一口氣，堅持到底。", reversed: "【逆位】捱唔住，唔想再堅持，hea爆。" },
+  { name: "權杖10", upright: "【正位】壓力爆煲，背晒鑊，今日咩都係你做。", reversed: "【逆位】唔想再背鑊，學識放低。" },
+  { name: "權杖侍者", upright: "【正位】新手，乜都唔識但肯試。", reversed: "【逆位】新手上路，亂咁嚟，hea到出汁。" },
+  { name: "權杖騎士", upright: "【正位】衝動，話咁快，今日一衝就衝。", reversed: "【逆位】衝過頭，撞板，唔識收斂。" },
+  { name: "權杖皇后", upright: "【正位】照顧人，溫柔，今日好人mode。", reversed: "【逆位】太溫柔變軟弱，俾人蝦。" },
+  { name: "權杖國王", upright: "【正位】領導，話晒事，今日你話事。", reversed: "【逆位】領導唔到，俾人踩頭。" },
+
+  // 聖杯Ace-10 + 宮廷牌
+  { name: "聖杯Ace", upright: "【正位】新戀情，心心眼，今日好易心動。", reversed: "【逆位】爛桃花，感情冇著落。" },
+  { name: "聖杯2", upright: "【正位】拍拖feel，大家互有好感。", reversed: "【逆位】感情唔對路，大家各自各。"},
+  { name: "聖杯3", upright: "【正位】開心Share，friend多好事多。", reversed: "【逆位】人多口雜，八卦事多。"},
+  { name: "聖杯4", upright: "【正位】悶悶地，唔滿足，想有新刺激。", reversed: "【逆位】終於唔再hea，肯主動搵機會。"},
+  { name: "聖杯5", upright: "【正位】失戀feel，唔開心，成日回帶。", reversed: "【逆位】放低舊情，重新出發。"},
+  { name: "聖杯6", upright: "【正位】回憶殺，舊情人、舊friend返晒嚟。", reversed: "【逆位】唔再回頭，向前行。"},
+  { name: "聖杯7", upright: "【正位】選擇多到花多眼亂，唔知揀邊個。", reversed: "【逆位】終於揀到，唔再拖拉。"},
+  { name: "聖杯8", upright: "【正位】放低唔開心，轉新方向。", reversed: "【逆位】死都唔捨得走，自己困住自己。"},
+  { name: "聖杯9", upright: "【正位】心願成真，今日好運。", reversed: "【逆位】想太多，唔實際。"},
+  { name: "聖杯10", upright: "【正位】幸福家庭，開心到爆。", reversed: "【逆位】表面開心，內裡有嘢。"},
+  { name: "聖杯侍者", upright: "【正位】新戀情預告，心動feel。", reversed: "【逆位】爛桃花，唔好信太快。"},
+  { name: "聖杯騎士", upright: "【正位】浪漫追求，今日有人示好。", reversed: "【逆位】太hea，冇行動，戀愛唔開花。"},
+  { name: "聖杯皇后", upright: "【正位】感性爆燈，今日好易喊。", reversed: "【逆位】情緒化，自己都頂唔順自己。"},
+  { name: "聖杯國王", upright: "【正位】感情成熟，識照顧人。", reversed: "【逆位】情緒唔穩，亂咁發脾氣。" },
+
+  // 寶劍Ace-10 + 宮廷牌
+  { name: "寶劍Ace", upright: "【正位】諗法清晰，今日IQ爆燈。", reversed: "【逆位】諗極都唔明，腦入面打晒結。" },
+  { name: "寶劍2", upright: "【正位】兩難，唔知揀邊個，糾結。", reversed: "【逆位】終於肯揀，唔再拖拉。" },
+  { name: "寶劍3", upright: "【正位】心碎，失戀，今日唔好聽情歌。", reversed: "【逆位】傷口癒合，唔再咁痛。" },
+  { name: "寶劍4", upright: "【正位】休息，hea住先，唔好咁急。", reversed: "【逆位】hea到出汁，做嘢都冇心機。" },
+  { name: "寶劍5", upright: "【正位】鬥嘴王，今日寸爆全場。", reversed: "【逆位】寸到冇朋友，自己都唔想再寸。" },
+  { name: "寶劍6", upright: "【正位】轉新環境，適合轉工/搬屋。", reversed: "【逆位】走極都走唔甩，卡住咗。" },
+  { name: "寶劍7", upright: "【正位】偷雞摸狗，唔好俾人發現。", reversed: "【逆位】偷雞失敗，比人捉正。" },
+  { name: "寶劍8", upright: "【正位】困住自己，諗多咗。", reversed: "【逆位】終於肯放開自己，唔再自困。" },
+  { name: "寶劍9", upright: "【正位】失眠，諗到瞓唔著。", reversed: "【逆位】終於肯放低，瞓得返。" },
+  { name: "寶劍10", upright: "【正位】GG，咩都完咗，唔好再執著。", reversed: "【逆位】死過翻生，開始新生活。" },
+  { name: "寶劍侍者", upright: "【正位】小心有八卦，今日多是非。", reversed: "【逆位】亂傳消息，搞到人地唔開心。" },
+  { name: "寶劍騎士", upright: "【正位】行動力爆燈，今日快狠準。", reversed: "【逆位】衝過頭，唔計後果。" },
+  { name: "寶劍皇后", upright: "【正位】理性分析，今日IQ女神/男神。", reversed: "【逆位】太冷靜，冇人敢埋身。" },
+  { name: "寶劍國王", upright: "【正位】頭腦清晰，領導全場。", reversed: "【逆位】太冷血，唔識做人。" },
+
+  // 錢幣Ace-10 + 宮廷牌
+  { name: "錢幣Ace", upright: "【正位】新財路，搵錢機會嚟喇！", reversed: "【逆位】搵錢機會miss咗，唔好再hea！" },
+  { name: "錢幣2", upright: "【正位】一腳踏兩船，忙到飛起。", reversed: "【逆位】忙到亂晒龍，咩都做唔掂。" },
+  { name: "錢幣3", upright: "【正位】合作有成，今日適合做group project。", reversed: "【逆位】合作唔到，大家各自各。"},
+  { name: "錢幣4", upright: "【正位】慳錢王，唔捨得使錢。", reversed: "【逆位】慳到出汁，最後都要使。" },
+  { name: "錢幣5", upright: "【正位】窮到喊，月尾食麵包。", reversed: "【逆位】終於有錢入袋，唔使再捱窮。" },
+  { name: "錢幣6", upright: "【正位】有錢分人，今日可以請friend食飯。", reversed: "【逆位】唔想再俾人呃錢，自己用返自己錢。" },
+  { name: "錢幣7", upright: "【正位】等收成，唔好心急，慢慢嚟。", reversed: "【逆位】等到花都謝，唔想再等。" },
+  { name: "錢幣8", upright: "【正位】勤力苦幹，今日做嘢做到癲。", reversed: "【逆位】做極都冇進步，hea住做。" },
+  { name: "錢幣9", upright: "【正位】享受成果，今日可以chill。", reversed: "【逆位】享受唔到，仲要捱多陣。" },
+  { name: "錢幣10", upright: "【正位】家肥屋潤，財運爆燈。", reversed: "【逆位】家無寧日，錢都唔見晒。" },
+  { name: "錢幣侍者", upright: "【正位】新搵錢方法，今日有新機會。", reversed: "【逆位】新機會miss咗，唔好再hea！" },
+  { name: "錢幣騎士", upright: "【正位】穩打穩紮，今日唔好衝動。", reversed: "【逆位】慢到出汁，機會都走咗。" },
+  { name: "錢幣皇后", upright: "【正位】照顧家庭，今日適合孝順父母。", reversed: "【逆位】顧自己多過顧人，俾人話自私。" },
+  { name: "錢幣國王", upright: "【正位】財政大臣，今日你話事。", reversed: "【逆位】亂使錢，搞到冇錢剩。" }
 ];
 
 let currentQuizIndex = 0;
