@@ -307,8 +307,19 @@
       <button id="get-fortune-btn">睇今日運勢</button>
       <button id="tarot-btn">AI塔羅占卜</button>
       <div id="fortune-result"></div>
+<!-- 捐錢區塊開始 -->
+<div style="background:#fffbe7;border:2px solid #ffe066;padding:18px;border-radius:10px;text-align:center;margin:30px 0;">
+  <h3 style="color:#c0392b;margin-bottom:8px;">💸 捐錢俾站主買杯凍檸茶！</h3>
+  <p style="color:#7a4e00;margin-bottom:8px;">Scan落去AlipayHK支持下啦，唔捐都like下先啦！</p>
+  <img src="https://pplx-res.cloudinary.com/image/upload/v1747527347/user_uploads/10940958/c8d4d259-1cf5-4a70-b7a2-5501a1495096/1000020328.jpg
+" alt="靚仔靚女支持" style="width:180px;max-width:80vw;border-radius:12px;border:2px solid #f7d97d;">
+  <p style="color:#a86e00;font-size:0.97em;margin-top:8px;">（收款戶口：On9Test大佬）</p>
+</div>
+<!-- 捐錢區塊完 -->
+
     </div>
   </div>
+  
 <script>
 const quizzes = [
   // 1. 翻版MBTI（8大人格）
@@ -450,6 +461,7 @@ const mbtiFortune = {
   ESFP: "ESFP：今日適合玩樂，記得唔好玩到唔返屋企。"
 };
 // 塔羅占卜
+  <script>
 const tarotCards = [
   { name: "愚者 The Fool", upright: "【正位】膽粗粗咩都唔驚，衝出去撞板。今日唔怕死，明天就知痛。", reversed: "【逆位】真係on9，諗都唔諗就衝，撞完板都唔記得痛。" },
   { name: "魔術師 The Magician", upright: "【正位】乜都識少少，扮晒嘢。今日你係場面王。", reversed: "【逆位】扮到十項全能，實際咩都唔精，講多過做。" },
@@ -538,6 +550,19 @@ const tarotCards = [
   { name: "錢幣皇后", upright: "【正位】照顧家庭，今日適合孝順父母。", reversed: "【逆位】顧自己多過顧人，俾人話自私。" },
   { name: "錢幣國王", upright: "【正位】財政大臣，今日你話事。", reversed: "【逆位】亂使錢，搞到冇錢剩。" }
 ];
+
+  document.getElementById('tarot-btn').onclick = function() {
+  const idx = Math.floor(Math.random() * tarotCards.length);
+  const card = tarotCards[idx];
+  const isUpright = Math.random() > 0.5;
+  const result = `
+    <b>你抽到：</b>${card.name} ${isUpright ? "（正位）" : "（逆位）"}<br>
+    <span style="color:#c0392b;">${isUpright ? card.upright : card.reversed}</span>
+    <br><span style="font-size:0.98em;color:#6c3483;">（唔準你告我啦，抽到咩都係你嘅命！）</span>
+  `;
+  document.getElementById('fortune-result').innerHTML = result;
+};
+</script>
 
 let currentQuizIndex = 0;
 const quizSelect = document.getElementById('quiz-select');
